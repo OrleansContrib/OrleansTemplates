@@ -8,7 +8,8 @@
 Successfully started Orleans silo 'MyComputerName' as a Primary node.
 Orleans Silo is running.
 Started web host at: http://MyComputerName:81
-Press ENTER to terminate.```
+Press ENTER to terminate.
+```
 
 At this point, you have a Silo running backed by a REST Api. You can interact with your grains using a REST client (if the grain have a corresponding web ApiController). There are two ways you can add an ApiController to your grains:
 
@@ -53,6 +54,6 @@ The ETG grain is a normal Orleans Grain but supports additional Attributes that 
     ...
     }    
 ```
-In this example, we are declaring that the Grain have a `State` of type `IPrefsGrainState` (the state interface is user defined and must implement `IGrainState`), that the state of the Grain is persisted lazily (only if the `State` has changed) every 5 seconds. The StorageProvider property of the State indicates where the State will be persisted. In this case, we used **MemoryStore** which is defined in the Silo’s **DevTestServerConfiguration.xml** file.
+In this example, we are declaring that the Grain have a `State` of type `IPrefsGrainState` (the state interface is user defined and must implement `IGrainState`), that the state of the Grain is persisted lazily (only if the `State` has changed) every 5 seconds. The StorageProvider property of the State indicates where the State will be persisted. In this case, we used **MemoryStore** which is defined in the Siloâ€™s **DevTestServerConfiguration.xml** file.
 
 Note that the `PrefsGrain` class inherits from `PrefsGrainBase` and not `Grain`. In fact, the code of `PrefsGrainBase` (which is a subclass of `Grain`) is auto generated at compile time and will contain the code implementing the behavior defined by the Attributes placed on the grain (such as the `State` attribute).
