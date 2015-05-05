@@ -18,7 +18,7 @@ To install the Orleans Templates, simply clone the repository and copy the Visua
 
 Documentation 
 =======
-* [Tutorial](Documentation\Tutorial.md)
+* [Tutorial](Documentation/Tutorial.md)
 
 License
 =======
