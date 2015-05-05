@@ -1,6 +1,6 @@
 Orleans Templates
 =======
-The goal of this project is to increase Orleans developers productivity by offering a set of Visual Studio templates that spare developers from routine configuration and from writing boiler-plate code. We offer the following:
+**Orleans Templates** increase Orleans developers productivity by offering a set of Visual Studio templates that spare developers from routine configuration and from writing boiler-plate code. It was created by **Microsoft Studios (BigPark)**. It offers the following:
 
 * A full **solution template** for Visual Studio that contains projects for Grains, GrainInterfaces, Local Silo and REST Api.
 * A set of **Attributes** backed by a compile-time code generation (using Roslyn) to reduce boiler-plate code. In fact, we support placing ASP.NET routing attributes directly on the Grain Interface and we generate the corresponding Api Controllers for you. In addition, we offer a `State` attribute that allow one to associate a **state** with a Grain and to **persist** the State periodically (using a timer) without writing a single line of code.
