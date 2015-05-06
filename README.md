@@ -19,7 +19,16 @@ To install the Orleans Templates, simply clone the repository and copy the Visua
 Documentation 
 =======
 * [Tutorial](Documentation/Tutorial.md)
+* [Code Generation Documentation] (useful for contributors).
+
+Contribute!
+=======
+We welcome and appreciate contributions of all sorts including suggestions, bug fixes, improvements, more tests, etc.
+
+One of the best way to contribute would be to add new `Attribute`s that offer useful functionality or save users from writing boiler-plate code. Please consult the [Code Generation Documentation] and the source code for more information on how to add new `Attribute`s.
 
 License
 =======
 This project is licensed under the [MIT license](LICENSE).
+
+[Code Generation Documentation]: Documentation/CodeGenDocumentation.md
