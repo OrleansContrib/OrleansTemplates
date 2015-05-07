@@ -47,7 +47,7 @@ namespace TestingConsoleApp
     [RoutePrefix(""api/prefs"")]
     public partial class PrefsGrainController : ApiController
     {
-        [Route(""new/{id}"")]
+        [Route(""{id}"")]
         [HttpPost]
         public async Task SetValue([FromBody] KeyValuePair<string, string> entry, string id)
         {
@@ -55,14 +55,14 @@ namespace TestingConsoleApp
             await grain.SetValue(entry);
         }
 
-        [Route(""value/{id}/{key}"")]
+        [Route(""{id}/{key}"")]
         public Task<string> GetValue(string key, string id)
         {
             var grain = GrainFactory.GetGrain<IPrefsGrain>(id);
             return grain.GetValue(key);
         }
 
-        [Route(""entries/{id}"")]
+        [Route(""{id}"")]
         [HttpGet]
         public Task<IDictionary<string, string>> GetAllEntries(string id)
         {
@@ -70,7 +70,7 @@ namespace TestingConsoleApp
             return grain.GetAllEntries();
         }
 
-        [Route(""clear/{id}"")]
+        [Route(""{id}"")]
         [HttpDelete]
         public async Task ClearValues(string id)
         {
