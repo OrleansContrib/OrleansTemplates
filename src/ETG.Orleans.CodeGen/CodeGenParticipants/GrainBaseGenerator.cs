@@ -102,11 +102,10 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
 
                         namespaceDclr = namespaceDclr.AddMembers(classDclr);
                         cu = cu.AddMembers(namespaceDclr);
-                        textWriter.Write(Formatter.Format(cu, workspace));
                     }
-                    
                 }
             }
+            textWriter.Write(Formatter.Format(cu, workspace));
         }
 
         private string GetStorageProviderValue(AttributeNodeInspector attrInspector)
