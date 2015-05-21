@@ -1,6 +1,6 @@
 ﻿using Orleans;
 
-namespace GrainsTemplate
+namespace $rootnamespace$
 {
     public abstract partial class $safeitemname$ : Grain<$StateInterfaceName$>
     {
