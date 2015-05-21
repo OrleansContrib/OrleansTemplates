@@ -35,7 +35,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="ETG.Orleans">
-      <HintPath>..\..\packages\ETG.Orleans.1.0.1\content\dependencies\ETG.Orleans.dll</HintPath>
+      <HintPath>..\..\packages\ETG.Orleans.1.0.2\content\dependencies\ETG.Orleans.dll</HintPath>
     </Reference>
     <Reference Include="Orleans">
       <HintPath>..\..\packages\Microsoft.Orleans.Core.1.0.5\lib\net45\Orleans.dll</HintPath>
@@ -43,7 +43,7 @@
 	</Reference>
     <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ETG.Orleans.1.0.1\content\dependencies\System.Web.Http.dll</HintPath>
+      <HintPath>..\..\packages\ETG.Orleans.1.0.2\content\dependencies\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,7 +61,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Orleans.Templates.Interfaces.1.0.5\build\Microsoft.Orleans.Templates.Interfaces.targets" Condition="Exists('..\..\packages\Microsoft.Orleans.Templates.Interfaces.1.0.5\build\Microsoft.Orleans.Templates.Interfaces.targets')" />
-  <UsingTask TaskName="ETG.Orleans.CodeGen.Tasks.GenerateApiControllersTask" AssemblyFile="$(ProjectDir)..\..\packages\ETG.Orleans.1.0.1\content\dependencies\ETG.Orleans.CodeGen.dll" />
+  <UsingTask TaskName="ETG.Orleans.CodeGen.Tasks.GenerateApiControllersTask" AssemblyFile="$(ProjectDir)..\..\packages\ETG.Orleans.1.0.2\content\dependencies\ETG.Orleans.CodeGen.dll" />
   <Target Name="BeforeBuild">
     <message text="ETG: GenerateCode running..." importance="high" />
     <GenerateApiControllersTask ProjectPath="$(ProjectDir)$(AssemblyName).csproj" OutputPath="$(ProjectDir)Properties\etg.orleans.codegen.cs" />
