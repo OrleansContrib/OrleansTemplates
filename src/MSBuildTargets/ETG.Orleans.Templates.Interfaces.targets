@@ -1,0 +1,14 @@
+<!--
+***********************************************************************************************
+OrleansTemplates target for Grain Interfaces project
+Copyright (C) Microsoft Corporation. All rights reserved.
+***********************************************************************************************
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="ETG.Orleans.CodeGen.Tasks.GenerateApiControllersTask" AssemblyFile="$(MSBuildThisFileDirectory)..\tools\ETG.Orleans.CodeGen.dll" />
+  <UsingTask TaskName="ETG.Orleans.CodeGen.Tasks.GenerateSwmrInterfacesTask" AssemblyFile="$(MSBuildThisFileDirectory)..\tools\ETG.Orleans.CodeGen.dll" />
+  <Target Name="BeforeBuild">
+    <GenerateApiControllersTask ProjectPath="$(ProjectDir)$(AssemblyName).csproj" OutputPath="$(ProjectDir)Properties\etg.orleans.apicontrollers.cs" />
+    <GenerateSwmrInterfacesTask ProjectPath="$(ProjectDir)$(AssemblyName).csproj" OutputPath="$(ProjectDir)Properties\etg.orleans.swmrinterfaces.cs" />
+  </Target>
+</Project>

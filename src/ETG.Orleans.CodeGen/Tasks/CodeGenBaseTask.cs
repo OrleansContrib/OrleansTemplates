@@ -21,7 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 
 using System;
 using System.IO;
+using System.Reflection;
 using ETG.Orleans.CodeGen.CodeGenParticipants;
+using ETG.Orleans.CodeGen.Utils;
 using Microsoft.Build.Framework;
 using Task = Microsoft.Build.Utilities.Task;
 
@@ -49,11 +51,17 @@ namespace ETG.Orleans.CodeGen.Tasks
                 }
                 return true;
             }
+            catch (ReflectionTypeLoadException exception)
+            {
+                StringWriter strWriter = new StringWriter();
+                LoaderExceptionUtils.LogExceptionDetails(exception.LoaderExceptions, strWriter);
+                LogMessage(strWriter.ToString());
+            }
             catch (Exception e)
             {
                 LogMessage(e.ToString());
-                return false;
             }
+            return false;
         }
 
         public abstract ICodeGenParticipant[] GetCodeGenParticipants();

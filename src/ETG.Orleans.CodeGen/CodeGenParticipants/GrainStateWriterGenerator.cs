@@ -19,6 +19,7 @@ OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHE
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
@@ -30,15 +31,10 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
     /// </summary>
     public class GrainStateWriterGenerator : ICodeGenParticipant
     {
-        public Task CodeGen(Workspace workspace, Project project, TextWriter textWriter)
+        public Task<CodeGenResult> CodeGen(Workspace workspace, Project project)
         {
-            textWriter.Write(
-                @"using System;
-using System.Threading.Tasks;
-using Orleans;
-using Orleans.Runtime;
-
-internal class GrainStateWriter
+            IEnumerable<string> usings = new [] { "System", "System.Threading.Tasks", "Orleans", "Orleans.Runtime" };
+            const string code = @"internal class GrainStateWriter
 {
        private IGrainState _currentState;
         private readonly IGrainWithStringKey _grain;
@@ -74,9 +70,8 @@ internal class GrainStateWriter
                 }
             }
         }
-}
-");
-            return Task.FromResult(false);
+}";
+            return Task.FromResult(new CodeGenResult(code, usings));
         }
     }
 }

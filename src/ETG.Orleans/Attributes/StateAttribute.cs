@@ -29,9 +29,12 @@ namespace ETG.Orleans.Attributes
     /// This attribute can be placed on a grain implementation to indicate that the grain has a State and allows periodic writes of the grain state
     /// to storage in a lazy fashion. By default, the lazy write is turned off.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class StateAttribute : Attribute
     {
+        /// <summary>
+        /// Default constructor: The Period is set to 5 and LazyWrite is turned off.
+        /// </summary>
         public StateAttribute()
         {
             LazyWrite = false;

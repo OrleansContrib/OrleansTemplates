@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>ETG.Orleans.Templates.Grains</Name>
+    <Description>ETG.Orleans.Templates.Grains</Description>
+    <Icon>ETG.Orleans.Templates.Grains.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <SortOrder>1000</SortOrder>
+    <TemplateID>bc5049ce-9ec0-4a4a-ae4e-024a7a76e160</TemplateID>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Grains</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Grains.csproj" File="ProjectTemplate.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">PrefsGrain.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+
+  <WizardExtension>
+    <Assembly>NuGet.VisualStudio.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+    <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
+  </WizardExtension>
+  <WizardData>
+    <packages repository="extension" repositoryId="ETG.Orleans.Templates.VSIX">
+      <package id="ETG.Orleans.Templates.Grains" version="1.1.0"/>
+      <package id="Microsoft.Orleans.Templates.Grains" version="1.0.8" />
+      <package id="ETG.Orleans" version="1.1.0"/>
+      <package id="Microsoft.Orleans.Core" version="1.0.8" />
+    </packages>
+  </WizardData>
+  
+</VSTemplate>

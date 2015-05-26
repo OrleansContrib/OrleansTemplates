@@ -30,7 +30,7 @@ namespace ETG.Orleans.CodeGen.Tasks
     {
         public override ICodeGenParticipant[] GetCodeGenParticipants()
         {
-            return new ICodeGenParticipant[]{new CodeGenHeaderGenerator(), new GrainStateWriterGenerator(), new GrainBaseGenerator()};
+            return new ICodeGenParticipant[] { new GrainStateWriterGenerator(), new GrainBaseGenerator() };
         }
     }
 }

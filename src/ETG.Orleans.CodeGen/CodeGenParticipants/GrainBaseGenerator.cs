@@ -49,7 +49,7 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
 
         private SemanticModel _semanticModel;
 
-        public async Task CodeGen(Workspace workspace, Project project, TextWriter textWriter)
+        public async Task<CodeGenResult> CodeGen(Workspace workspace, Project project)
         {
             CompilationUnitSyntax cu = SF.CompilationUnit();
             
@@ -62,53 +62,53 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
 
                 foreach (ClassDeclarationSyntax grainDeclaration in grainDeclarations)
                 {
+                    if (!RoslynUtils.IsPublic(grainDeclaration)) continue;
+
                     AttributeSyntax stateAttr = AttributeUtils.SelectAttributeOfType(grainDeclaration.AttributeLists, typeof(StateAttribute), _semanticModel);
-                    if (stateAttr != null)
+                    if (stateAttr == null) continue;
+
+                    var namespaceNode = grainDeclaration.Parent as NamespaceDeclarationSyntax;
+                    if (namespaceNode == null)
                     {
-                        var namespaceNode = grainDeclaration.Parent as NamespaceDeclarationSyntax;
-                        if (namespaceNode == null)
-                        {
-                            throw new Exception("A grain must be declared inside a namespace");
-                        }
-
-                        string fullNameSpace = _semanticModel.GetDeclaredSymbol(namespaceNode).ToString();
-                        NamespaceDeclarationSyntax namespaceDclr = 
-                            SF.NamespaceDeclaration(SF.IdentifierName(fullNameSpace))
-                            .AddUsings(GetCommonUsings().Select(RoslynUtils.UsingDirective).ToArray());
-
-                        AttributeNodeInspector attrInspector = new AttributeNodeInspector(stateAttr, _semanticModel);
-                        string stateType = GetStateType(attrInspector);
-                        bool lazyWriteValue = GetLazyWriteValue(attrInspector);
-                        string storageProviderValue = GetStorageProviderValue(attrInspector);
-
-                        string grainBaseName = grainDeclaration.Identifier.Text + BaseSuffix;
-                        ClassDeclarationSyntax classDclr = SF.ClassDeclaration(SF.Identifier(grainBaseName)).AddModifiers(SF.Token(SyntaxKind.PublicKeyword), SF.Token(SyntaxKind.AbstractKeyword), SF.Token(SyntaxKind.PartialKeyword)).WithBaseList(SF.BaseList(SF.SeparatedList<BaseTypeSyntax>().Add(SF.SimpleBaseType(SF.IdentifierName(string.Format("Grain<{0}>", stateType))))));
-
-                        if (lazyWriteValue)
-                        {
-                            long period = GetPeriodValue(attrInspector);
-                            TypeSyntax returnType = SF.ParseTypeName("Task");
-                            MethodDeclarationSyntax methodDeclaration = SF.MethodDeclaration(returnType, SF.Identifier("OnActivateAsync")).AddModifiers(SF.Token(SyntaxKind.PublicKeyword), SF.Token(SyntaxKind.OverrideKeyword)).AddBodyStatements(
-                                SF.ParseStatement(string.Format("RegisterTimer(new GrainStateWriter(this, this.GetLogger()).WriteState, State, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds({0}));\n", period)),
-                                SF.ParseStatement("return base.OnActivateAsync();"));
-                            classDclr = classDclr.AddMembers(methodDeclaration);
-                        }
-
-                        if (storageProviderValue != null)
-                        {
-                            AttributeSyntax storageProviderAttribute = SF.Attribute(SF.IdentifierName("StorageProvider"), SF.AttributeArgumentList().WithArguments(SF.SeparatedList<AttributeArgumentSyntax>().Add(SF.AttributeArgument(SF.NameEquals(SF.IdentifierName("ProviderName")), null, SF.IdentifierName(storageProviderValue)))));
-                            classDclr = classDclr.WithAttributeLists(SF.List<AttributeListSyntax>().Add(SF.AttributeList().AddAttributes(storageProviderAttribute)));
-                        }
-
-                        namespaceDclr = namespaceDclr.AddMembers(classDclr);
-                        cu = cu.AddMembers(namespaceDclr);
+                        throw new Exception("A grain must be declared inside a namespace");
                     }
+
+                    string fullNameSpace = _semanticModel.GetDeclaredSymbol(namespaceNode).ToString();
+                    NamespaceDeclarationSyntax namespaceDclr = 
+                        SF.NamespaceDeclaration(SF.IdentifierName(fullNameSpace));
+
+                    AttributeInspector attrInspector = new AttributeInspector(stateAttr, _semanticModel);
+                    string stateType = GetStateType(attrInspector);
+                    bool lazyWriteValue = GetLazyWriteValue(attrInspector);
+                    string storageProviderValue = GetStorageProviderValue(attrInspector);
+
+                    string grainBaseName = grainDeclaration.Identifier.Text + BaseSuffix;
+                    ClassDeclarationSyntax classDclr = SF.ClassDeclaration(SF.Identifier(grainBaseName)).AddModifiers(SF.Token(SyntaxKind.PublicKeyword), SF.Token(SyntaxKind.AbstractKeyword), SF.Token(SyntaxKind.PartialKeyword)).WithBaseList(SF.BaseList(SF.SeparatedList<BaseTypeSyntax>().Add(SF.SimpleBaseType(SF.IdentifierName(string.Format("Grain<{0}>", stateType))))));
+
+                    if (lazyWriteValue)
+                    {
+                        long period = GetPeriodValue(attrInspector);
+                        TypeSyntax returnType = SF.ParseTypeName("Task");
+                        MethodDeclarationSyntax methodDeclaration = SF.MethodDeclaration(returnType, SF.Identifier("OnActivateAsync")).AddModifiers(SF.Token(SyntaxKind.PublicKeyword), SF.Token(SyntaxKind.OverrideKeyword)).AddBodyStatements(
+                            SF.ParseStatement(string.Format("RegisterTimer(new GrainStateWriter(this, this.GetLogger()).WriteState, State, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds({0}));\n", period)),
+                            SF.ParseStatement("return base.OnActivateAsync();"));
+                        classDclr = classDclr.AddMembers(methodDeclaration);
+                    }
+
+                    if (storageProviderValue != null)
+                    {
+                        AttributeSyntax storageProviderAttribute = SF.Attribute(SF.IdentifierName("StorageProvider"), SF.AttributeArgumentList().WithArguments(SF.SeparatedList<AttributeArgumentSyntax>().Add(SF.AttributeArgument(SF.NameEquals(SF.IdentifierName("ProviderName")), null, SF.IdentifierName(storageProviderValue)))));
+                        classDclr = classDclr.WithAttributeLists(SF.List<AttributeListSyntax>().Add(SF.AttributeList().AddAttributes(storageProviderAttribute)));
+                    }
+
+                    namespaceDclr = namespaceDclr.AddMembers(classDclr);
+                    cu = cu.AddMembers(namespaceDclr);
                 }
             }
-            textWriter.Write(Formatter.Format(cu, workspace));
+            return new CodeGenResult(Formatter.Format(cu, workspace).ToString(), GetCommonUsings());
         }
 
-        private string GetStorageProviderValue(AttributeNodeInspector attrInspector)
+        private string GetStorageProviderValue(AttributeInspector attrInspector)
         {
             if (!attrInspector.NamedArguments.ContainsKey(StorageProviderPropertyName))
             {
@@ -117,7 +117,7 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
             return attrInspector.NamedArguments[StorageProviderPropertyName];
         }
 
-        private static long GetPeriodValue(AttributeNodeInspector attrInspector)
+        private static long GetPeriodValue(AttributeInspector attrInspector)
         {
             if (!attrInspector.NamedArguments.ContainsKey(StatePeriodPropertyName))
             {
@@ -126,7 +126,7 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
             return Convert.ToInt64(attrInspector.NamedArguments[StatePeriodPropertyName]);
         }
 
-        private static bool GetLazyWriteValue(AttributeNodeInspector attrInspector)
+        private static bool GetLazyWriteValue(AttributeInspector attrInspector)
         {
             if (!attrInspector.NamedArguments.ContainsKey(StateLazyWritePropertyName))
             {
@@ -135,7 +135,7 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
             return attrInspector.NamedArguments[StateLazyWritePropertyName] == "true";
         }
 
-        private static string GetStateType(AttributeNodeInspector attrInspector)
+        private static string GetStateType(AttributeInspector attrInspector)
         {
             if (!attrInspector.NamedArguments.ContainsKey(StateTypePropertyName))
             {

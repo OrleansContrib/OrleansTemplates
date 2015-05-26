@@ -21,7 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ETG.Orleans.Attributes;
@@ -43,10 +42,10 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
         const string RoutePrefix = "RoutePrefix";
         private const string ApicontrollerClassName = "ApiController";
 
-        public async Task CodeGen(Workspace workspace, Project project, TextWriter textWriter)
+        public async Task<CodeGenResult> CodeGen(Workspace workspace, Project project)
         {
-            var usingsToCopy = new HashSet<string>();
-            usingsToCopy.UnionWith(GetCommonUsings());
+            var usings = new HashSet<string>();
+            usings.UnionWith(GetCommonUsings());
             CompilationUnitSyntax cu = SF.CompilationUnit();
 
             foreach (Document document in project.Documents)
@@ -70,7 +69,7 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
                     copyDocumentUsings = true;
                     var namespaceNode = interfaceNode.Parent as NamespaceDeclarationSyntax;
                     // ReSharper disable once PossibleNullReferenceException
-                    usingsToCopy.UnionWith(namespaceNode.Usings.Select(@using => @using.Name.ToString()));
+                    usings.UnionWith(namespaceNode.Usings.Select(@using => @using.Name.ToString()));
 
                     // use the same namespace in the generated class
                     string fullNameSpace = semanticModel.GetDeclaredSymbol(namespaceNode).ToString();
@@ -80,22 +79,16 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
                 }
                 if (copyDocumentUsings)
                 {
-                    usingsToCopy.UnionWith(syntaxTree.GetRoot().DescendantNodes().OfType<UsingDirectiveSyntax>().Select(@using => @using.Name.ToString()));
+                    usings.UnionWith(syntaxTree.GetRoot().DescendantNodes().OfType<UsingDirectiveSyntax>().Select(@using => @using.Name.ToString()));
                 }
             }
 
-            usingsToCopy.RemoveWhere(ns => ns.StartsWith("ETG.Orleans")); // not needed in the api controller
-            cu = cu.AddUsings(usingsToCopy.Select(RoslynUtils.UsingDirective).ToArray());
-            textWriter.Write(Formatter.Format(cu, workspace));
+            return new CodeGenResult(Formatter.Format(cu, workspace).ToString(), usings);
         }
 
         private static ClassDeclarationSyntax GenerateApiControllerForInterface(InterfaceDeclarationSyntax interfaceNode, SemanticModel semanticModel)
         {
-            var namespaceNode = interfaceNode.Parent as NamespaceDeclarationSyntax;
-            if (namespaceNode == null)
-            {
-                throw new Exception("A grain interface must be declared inside a namespace");
-            }
+            if (!RoslynUtils.IsPublic(interfaceNode)) return null;
 
             AttributeSyntax apiControllerAttribute = AttributeUtils.SelectAttributeOfType(interfaceNode.AttributeLists, typeof(ApiControllerAttribute), semanticModel);
 
@@ -105,20 +98,22 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
                 return null;
             }
 
+            var namespaceNode = interfaceNode.Parent as NamespaceDeclarationSyntax;
+            if (namespaceNode == null)
+            {
+                throw new Exception("A grain interface must be declared inside a namespace");
+            }
+
             // copy all attributes except the ApiController attribute
-            SyntaxList<AttributeListSyntax> attributesLists = RemoveAttributeOfType(interfaceNode.AttributeLists, typeof(ApiControllerAttribute), semanticModel);
+            SyntaxList<AttributeListSyntax> attributesLists = AttributeUtils.RemoveAttributeOfType(interfaceNode.AttributeLists, typeof(ApiControllerAttribute), semanticModel);
 
             // add the RoutePrefix attribute (if any)
-            var attributeInspector = new AttributeNodeInspector(apiControllerAttribute, semanticModel);
+            var attributeInspector = new AttributeInspector(apiControllerAttribute, semanticModel);
             if (attributeInspector.NamedArguments.ContainsKey(RoutePrefix))
             {
-                AttributeSyntax routePrefixAttribute =
-                    SF.Attribute(SF.IdentifierName(RoutePrefix),
-                        SF.AttributeArgumentList()
-                            .WithArguments(SF.SeparatedList<AttributeArgumentSyntax>().Add(SF.AttributeArgument(SF.IdentifierName(attributeInspector.NamedArguments[RoutePrefix])))));
-                attributesLists = attributesLists.Add(
-                    SF.AttributeList(
-                        attributes: SF.SeparatedList<AttributeSyntax>().Add(routePrefixAttribute)));
+                AttributeSyntax routePrefixAttribute = AttributeUtils.AttributeWithArgument(RoutePrefix,
+                    attributeInspector.NamedArguments[RoutePrefix]);
+                attributesLists = attributesLists.Add(AttributeUtils.AttributeList(routePrefixAttribute));
             }
 
             string grainName = interfaceNode.Identifier.Text;
@@ -129,7 +124,7 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
                 SF.ClassDeclaration(SF.Identifier(apiControllerName)).AddModifiers(SF.Token(SyntaxKind.PublicKeyword), SF.Token(SyntaxKind.PartialKeyword)).WithAttributeLists(SF.List(attributesLists)).WithBaseList(SF.BaseList(SF.SeparatedList<BaseTypeSyntax>().Add(SF.SimpleBaseType(SF.IdentifierName(ApicontrollerClassName)))));
 
             // generate the api controller methods and add them to the class
-            IEnumerable<MethodDeclarationSyntax> apiControllerMethods = GenerateApiControllerMethods(GetMethodDeclarations(interfaceNode), grainName);
+            IEnumerable<MethodDeclarationSyntax> apiControllerMethods = GenerateApiControllerMethods(RoslynUtils.GetMethodDeclarations(interfaceNode), grainName);
             // ReSharper disable once LoopCanBeConvertedToQuery
             foreach (var method in apiControllerMethods)
             {
@@ -138,35 +133,20 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
             return classDclr;
         }
 
-        private static IEnumerable<MethodDeclarationSyntax> GetMethodDeclarations(InterfaceDeclarationSyntax interfaceNode)
-        {
-            return interfaceNode.DescendantNodes().OfType<MethodDeclarationSyntax>();
-        }
-
         private static IEnumerable<MethodDeclarationSyntax> GenerateApiControllerMethods(IEnumerable<MethodDeclarationSyntax> grainInterfaceMethods, string grainName)
         {
             var methodsDeclarations = new List<MethodDeclarationSyntax>();
             foreach (var methodNode in grainInterfaceMethods)
             {
                 // insert the id parameter at the end of the list of parameters
-                var idParam = SF.Parameter(new SyntaxList<AttributeListSyntax>(),
-                    new SyntaxTokenList(), SF.IdentifierName("string"),
-                    SF.Identifier(new SyntaxTriviaList().Add(SF.Space), "id",
-                        new SyntaxTriviaList()), null);
-                if (methodNode.ParameterList.Parameters.Any())
-                {
-                    idParam = idParam.WithLeadingTrivia(SF.Space);
-                }
+                var idParam = RoslynUtils.CreateParameter("string", "id");
+                MethodDeclarationSyntax methodDclr = RoslynUtils.AppendParameterToMethod(methodNode, idParam);
 
-                MethodDeclarationSyntax methodDclr =
-                    methodNode.WithParameterList(methodNode.ParameterList.AddParameters(idParam))
-                        .AddModifiers(SF.Token(SyntaxKind.PublicKeyword))
-                        .WithSemicolonToken(SF.Token(SyntaxKind.None));
+                methodDclr = methodDclr.AddModifiers(SF.Token(SyntaxKind.PublicKeyword)).WithSemicolonToken(SF.Token(SyntaxKind.None));
 
-                StatementSyntax getGrainStmt =
-                    SF.ParseStatement(string.Format(
+                StatementSyntax getGrainStmt = SF.ParseStatement(string.Format(
                         "var grain = GrainFactory.GetGrain<{0}>(id);\n", grainName));
-                MethodNodeInspector methodInspector = new MethodNodeInspector(methodNode);
+                MethodInspector methodInspector = new MethodInspector(methodNode);
 
                 string callGrainStmt = string.Format("grain.{0}({1});",
                     methodInspector.MethodName, string.Join(", ", methodInspector.MethodParams.Keys));
@@ -201,29 +181,6 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
                 "System.Threading.Tasks",
                 "Orleans"
             };
-        }
-
-        private static SyntaxList<AttributeListSyntax> RemoveAttributeOfType(SyntaxList<AttributeListSyntax> attributeLists, Type type, SemanticModel semanticModel)
-        {
-            var newList = new List<AttributeListSyntax>();
-            foreach (AttributeListSyntax attributeListSyntax in attributeLists)
-            {
-                var attributes = new List<AttributeSyntax>();
-                foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
-                {
-                    AttributeNodeInspector attributeInspector = new AttributeNodeInspector(attributeSyntax, semanticModel);
-                    if (attributeInspector.IsAttributeTypeOf(type))
-                    {
-                        continue;
-                    }
-                    attributes.Add(attributeSyntax);
-                }
-                if (attributes.Any())
-                {
-                    newList.Add(SF.AttributeList(SF.SeparatedList(attributes)));
-                }
-            }
-            return SF.List(newList);
         }
 
         public static bool IsAttributeTypeOf(SemanticModel semanticModel, AttributeSyntax attributeSyntax, Type type)

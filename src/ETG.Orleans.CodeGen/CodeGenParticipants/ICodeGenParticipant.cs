@@ -30,6 +30,6 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
     /// </summary>
     public interface ICodeGenParticipant
     {
-        Task CodeGen(Workspace workspace, Project project, TextWriter textWriter);
+        Task<CodeGenResult> CodeGen(Workspace workspace, Project project);
     }
 }

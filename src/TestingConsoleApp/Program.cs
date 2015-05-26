@@ -33,11 +33,8 @@ namespace TestingConsoleApp
         {
             try
             {
-                new CodeGenManager("../../TestingConsoleApp.csproj",
-                    new CodeGenHeaderGenerator(),
-                    new GrainStateWriterGenerator(),
-                    new GrainBaseGenerator(),
-                    new ApiControllerGenerator()).CodeGen(Console.Out).Wait();
+                new CodeGenManager("../../../../test/TestData/SWMR_Simple_Grains/SWMR_Simple_Grains.csproj",
+                    new SwmrGrainsGenerator()).CodeGen(Console.Out).Wait();
             }
             catch (ReflectionTypeLoadException exception)
             {
