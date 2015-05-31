@@ -21,18 +21,18 @@ namespace GrainInterfaces
     [ApiController(RoutePrefix = "api/prefs")]
     public interface IPrefsGrain : IGrainWithStringKey
     {
-        [Route("new/{id}")]
+        [Route("{id}")]
         [HttpPost]
         Task SetValue([FromBody] KeyValuePair<string, string> entry);
 
-        [Route("value/{id}/{key}")]
+        [Route("{id}/{key}")]
         Task<string> GetValue(string key);
 
-        [Route("entries/{id}")]
+        [Route("{id}")]
         [HttpGet]
         Task<IDictionary<string, string>> GetAllEntries();
 
-        [Route("clear/{id}")]
+        [Route("{id}")]
         [HttpDelete]
         Task ClearValues();
     }
