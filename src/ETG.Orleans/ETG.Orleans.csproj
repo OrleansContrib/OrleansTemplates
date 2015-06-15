@@ -48,7 +48,7 @@
     <Compile Include="Attributes\ApiControllerAttribute.cs" />
     <Compile Include="Attributes\ReadOnlyAttribute.cs" />
     <Compile Include="Attributes\SingleWriterMultipleReadersAttribute.cs" />
-    <Compile Include="Attributes\StateAttribute.cs" />
+    <Compile Include="GrainStateLazyWriteHandler.cs" />
     <Compile Include="Swmr\ConsistentHashRing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Swmr\ITopology.cs" />

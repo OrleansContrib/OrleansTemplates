@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR TH
 
 using System;
 using System.Threading.Tasks;
+using ETG.Orleans;
 using ETG.Orleans.Attributes;
 using GrainInterfaces;
 using Orleans;
@@ -28,12 +29,14 @@ using Orleans.Concurrency;
 
 namespace Grains
 {
-    [State(Type = typeof(IMyGrainState), LazyWrite = true, Period = 5, StorageProvider = "AzureStore")]
     [Reentrant]
     public class MyGrain : MyGrainBase, IMyGrainInterface
     {
         public override Task OnActivateAsync()
         {
+            RegisterTimer(new GrainStateLazyWriteHandler(this, GetLogger()).WriteState, State, TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(5));
+
             Console.WriteLine(State.AsDictionary());
             return base.OnActivateAsync();
         }

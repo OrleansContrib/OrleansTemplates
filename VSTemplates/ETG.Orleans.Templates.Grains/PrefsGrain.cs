@@ -39,6 +39,11 @@ namespace $safeprojectname$
             State.Prefs.Clear();
             return TaskDone.Done;
         }
+
+        public Task<IGrainState> GetState()
+        {
+            return Task.FromResult((IGrainState)State);
+        }
     }
 
     public interface IPrefsGrainState : IGrainState

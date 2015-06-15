@@ -5,10 +5,8 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 ***********************************************************************************************
 -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <UsingTask TaskName="ETG.Orleans.CodeGen.Tasks.GenerateGrainBaseTask" AssemblyFile="$(MSBuildThisFileDirectory)..\tools\ETG.Orleans.CodeGen.dll" />
   <UsingTask TaskName="ETG.Orleans.CodeGen.Tasks.GenerateSwmrGrainsTask" AssemblyFile="$(MSBuildThisFileDirectory)..\tools\ETG.Orleans.CodeGen.dll" />
   <Target Name="BeforeBuild">
-    <GenerateGrainBaseTask ProjectPath="$(ProjectDir)$(AssemblyName).csproj" OutputPath="$(ProjectDir)Properties\etg.orleans.grainbase.cs" />
     <GenerateSwmrGrainsTask ProjectPath="$(ProjectDir)$(AssemblyName).csproj" OutputPath="$(ProjectDir)Properties\etg.orleans.swmrgrains.cs" />
   </Target>
 </Project>

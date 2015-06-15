@@ -22,7 +22,6 @@
   <files>
 	<file src="..\..\src\MSBuildTargets\ETG.Orleans.Templates.Grains.targets" target="build" />	
 	
-	<file src="EmptyFile.cs" target="content\Properties\etg.orleans.grainbase.cs" />
 	<file src="EmptyFile.cs" target="content\Properties\etg.orleans.swmrgrains.cs" />
   
   	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\ETG.Orleans.CodeGen.dll" target="tools" />

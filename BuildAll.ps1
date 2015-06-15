@@ -7,15 +7,18 @@ msbuild.exe src\ETG.Orleans.sln /t:Build /p:Configuration=Release
 msbuild.exe test\ETG.Orleans.CodeGenTest.sln /t:Clean /p:Configuration=Release
 msbuild.exe test\ETG.Orleans.CodeGenTest.sln /t:Build /p:Configuration=Release
 
+### mstest is failing to resolve dependencies; run tests inside visual studio for now.
 #cd test\
 #mstest /testcontainer:ETG.Orleans.CodeGenTest\bin\Release\ETG.Orleans.CodeGenTest.dll
 #cd ..
 
+# Create Nugets
 cd Nuget
 .\NugetPackAll.ps1 $version $orleansVersion
 cd ..
 
-msbuild.exe VSTemplates\ETG.Orleans.Templates.VSIX\ETG.Orleans.Templates.VSIX.csproj /t:Clean /p:Configuration=Release
-msbuild.exe VSTemplates\ETG.Orleans.Templates.VSIX\ETG.Orleans.Templates.VSIX.csproj /t:Build /p:Configuration=Release
+# Create VSIX
+msbuild.exe "VSTemplates\VSTemplates.sln" /t:Clean /p:Configuration=Release
+msbuild.exe "VSTemplates\VSTemplates.sln" /t:Build /p:Configuration=Release
 
-Copy-Item VSTemplates\ETG.Orleans.Templates.VSIX\bin\Release\ETG.Orleans.Templates.VSIX.vsix .
+Copy-Item "VSTemplates\ETG.Orleans.Templates.VSIX\bin\Release\ETG.Orleans.Templates.VSIX.vsix" .

@@ -106,8 +106,6 @@
     <Compile Include="CodeGenManager.cs" />
     <Compile Include="CodeGenParticipants\ApiControllerGenerator.cs" />
     <Compile Include="CodeGenParticipants\CodeGenResult.cs" />
-    <Compile Include="CodeGenParticipants\GrainBaseGenerator.cs" />
-    <Compile Include="CodeGenParticipants\GrainStateWriterGenerator.cs" />
     <Compile Include="CodeGenParticipants\ICodeGenParticipant.cs" />
     <Compile Include="CodeGenParticipants\SwmrGrainsGenerator.cs" />
     <Compile Include="CodeGenParticipants\SwmrInterfaceGenerator.cs" />
@@ -115,7 +113,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tasks\CodeGenBaseTask.cs" />
     <Compile Include="Tasks\GenerateApiControllersTask.cs" />
-    <Compile Include="Tasks\GenerateGrainBaseTask.cs" />
     <Compile Include="Tasks\GenerateSwmrGrainsTask.cs" />
     <Compile Include="Tasks\GenerateSwmrInterfacesTask.cs" />
     <Compile Include="TypeInspector.cs" />

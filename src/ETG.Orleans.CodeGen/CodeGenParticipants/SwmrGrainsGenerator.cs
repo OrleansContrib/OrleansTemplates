@@ -1,6 +1,26 @@
-﻿using System;
+﻿/*
+Copyright (c) Microsoft Corporation
+ 
+All rights reserved.
+ 
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+associated documentation files (the ""Software""), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ETG.Orleans.Attributes;
@@ -184,7 +204,7 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
             string grainName = grainClass.Identifier.Text;
             string writerGrainName = SwmrUtils.GetWriteInterfaceName(grainName);
             string writerInterfaceName = SwmrUtils.GetWriteInterfaceName(swmrInterface.Name);
-            ClassDeclarationSyntax writerGrain = GenerateClassSqueleton(writerGrainName).WithBaseList(RoslynUtils.BaseList(new[] { "Grain", writerInterfaceName })); ;
+            ClassDeclarationSyntax writerGrain = GenerateClassSqueleton(writerGrainName).WithBaseList(RoslynUtils.BaseList(new[] { "Grain", writerInterfaceName }));
 
             writerGrain = AddTopologyField(writerGrain);
             writerGrain = writerGrain.AddMembers(GenerateOnActivateAsyncMethod(readReplicaCount));
@@ -205,7 +225,7 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
                 BlockSyntax statmentBlock = SF.Block();
                 statmentBlock = AddStatement(statmentBlock, "string grainId = this.GetPrimaryKeyString();");
                 statmentBlock = AddStatement(statmentBlock, string.Format("{0} grain = GrainFactory.GetGrain<{0}>(grainId);", swmrInterface.Name));
-                statmentBlock = AddStatement(statmentBlock, String.Format("await grain.{0}({1});", methodInspector.MethodName, string.Join(", ", methodInspector.MethodParams.Keys)));
+                statmentBlock = AddStatement(statmentBlock, String.Format("{0} await grain.{1}({2});", methodInspector.ReturnType != "Task"? "var result =" : "", methodInspector.MethodName, string.Join(", ", methodInspector.MethodParams.Keys)));
                 statmentBlock = AddStatement(statmentBlock, "IGrainState state = await grain.GetState();");
                 statmentBlock = AddStatement(statmentBlock, "string sessionNode = _topology.GetNode(sessionId);");
                 statmentBlock = AddStatement(statmentBlock, "IEnumerable<string> otherNodes = _topology.Nodes.Where(node => node != sessionNode);");
@@ -219,9 +239,12 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
 
                 statmentBlock = statmentBlock.AddStatements(forEachStatement);
                 statmentBlock =
-                    statmentBlock.AddStatements(
-                    SF.ParseStatement(string.Format("{0} {1}", methodInspector.ReturnType == "Task"? "await": "return await",
+                    AddStatement(statmentBlock, (string.Format("{0} {1}", "await",
                             GenerateSetStateStmt(readReplicaInterfaceName, @"grainId + ""_"" + sessionNode"))));
+                if (methodInspector.ReturnType != "Task")
+                {
+                    statmentBlock = AddStatement(statmentBlock, "return result;");
+                }
                 methodImpl = methodImpl.WithBody(statmentBlock);
                 writerGrain = writerGrain.AddMembers(methodImpl);
             }
@@ -257,7 +280,6 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
         private static MethodDeclarationSyntax GenerateMethodDeclaration(MethodInspector methodInspector)
         {
             MethodDeclarationSyntax methodDclr = SF.MethodDeclaration(SF.ParseTypeName(methodInspector.ReturnType), SF.Identifier(methodInspector.MethodName));
-            ParameterListSyntax parameters = SF.ParameterList();
             foreach (KeyValuePair<string, string> keyValuePair in methodInspector.MethodParams)
             {
                 string paramType = keyValuePair.Value;
@@ -275,12 +297,6 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
         private static string GenerateSetStateStmt(string grainInterfaceName, string grainIdVariableName)
         {
             return string.Format("GrainFactory.GetGrain<{0}>({1}).SetState(state);", grainInterfaceName, grainIdVariableName);
-        }
-
-        private static string GenerateCallGrainStmt(string grainInterfaceName, string grainIdVariableName, string grainMethodName, IEnumerable<string> parameters)
-        {
-            return string.Format("GrainFactory.GetGrain<{0}>({1}).{2}({3});",
-                grainInterfaceName, grainIdVariableName, grainMethodName, string.Join(", ", parameters));
         }
 
         private static ClassDeclarationSyntax GenerateClassSqueleton(string className)

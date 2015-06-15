@@ -1,4 +1,25 @@
-﻿using System.Collections.Generic;
+﻿/*
+Copyright (c) Microsoft Corporation
+ 
+All rights reserved.
+ 
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+associated documentation files (the ""Software""), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ETG.Orleans.CodeGen;
@@ -24,8 +45,8 @@ namespace ETG.Orleans.CodeGenTest
 @"using System.Threading.Tasks;
 using GrainInterfaces;
 using Orleans;
-using ETG.Orleans.Swmr;
 using System.Linq;
+using ETG.Orleans.Swmr;
 using System.Collections.Generic;
 using Orleans.Concurrency;
 
@@ -61,7 +82,7 @@ namespace Grains
         {
             string grainId = this.GetPrimaryKeyString();
             IHelloGrain grain = GrainFactory.GetGrain<IHelloGrain>(grainId);
-            await grain.WriteSomethingElse(something);
+            var result = await grain.WriteSomethingElse(something);
             IGrainState state = await grain.GetState();
             string sessionNode = _topology.GetNode(sessionId);
             IEnumerable<string> otherNodes = _topology.Nodes.Where(node => node != sessionNode);
@@ -70,7 +91,8 @@ namespace Grains
                 GrainFactory.GetGrain<IHelloGrainReadReplica>(grainId + ""_"" + node).SetState(state);
             }
 
-            return await GrainFactory.GetGrain<IHelloGrainReadReplica>(grainId + ""_"" + sessionNode).SetState(state);
+            await GrainFactory.GetGrain<IHelloGrainReadReplica>(grainId + ""_"" + sessionNode).SetState(state);
+            return result;
         }
     }
 

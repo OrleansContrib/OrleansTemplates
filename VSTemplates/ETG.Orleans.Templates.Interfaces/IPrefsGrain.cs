@@ -10,15 +10,18 @@ namespace $safeprojectname$
     /// Grain interface IGrain1
     /// </summary>
     [ApiController(RoutePrefix = "api/prefs")]
+    [SingleWriterMultipleReaders(ReadReplicaCount=10)]
     public interface IPrefsGrain : IGrainWithStringKey
     {
         [Route("{id}")]
         [HttpPost]
         Task SetValue([FromBody] KeyValuePair<string, string> entry);
 
+        [ReadOnly]
         [Route("{id}/{key}")]
         Task<string> GetValue(string key);
 
+        [ReadOnly]
         [Route("{id}")]
         [HttpGet]
         Task<IDictionary<string, string>> GetAllEntries();
@@ -26,5 +29,7 @@ namespace $safeprojectname$
         [Route("{id}")]
         [HttpDelete]
         Task ClearValues();
+
+        Task<IGrainState> GetState();
     }
 }

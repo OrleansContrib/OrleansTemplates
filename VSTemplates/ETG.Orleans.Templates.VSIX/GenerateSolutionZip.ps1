@@ -19,8 +19,8 @@ New-Item $tmpDir -type directory
 
 foreach ($projectTemplate in $projectTemplates)
 {
-	$sourceFile
 	$sourceFile =  $currentPath + "\" + $projectTemplate + "\bin\Release\ProjectTemplates\CSharp\1033\" + $projectTemplate + ".zip"
+	$sourceFile
 	[System.IO.Compression.ZipFile]::ExtractToDirectory($sourceFile, $tmpDir + "\" + $projectTemplate)
 }
 

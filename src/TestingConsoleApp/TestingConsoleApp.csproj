@@ -138,16 +138,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyGrain.cs" />
-    <Compile Include="MyGrainInterface.cs" />
-    <Compile Include="Properties\MyGrainBase.cs" />
-    <Compile Include="IMyGrainState.cs" />
-    <Compile Include="IPrefsGrain.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="swmr\codegen.cs" />
-    <Compile Include="swmr\HelloGrain.cs" />
-    <Compile Include="swmr\IHelloGrain.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
