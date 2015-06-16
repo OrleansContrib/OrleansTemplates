@@ -66,7 +66,7 @@ The `SingleWriterMultipleReaders` attribute can be placed on a Grain Interface a
 
 The `ReadReplicaCount` is the number of read replicas that will be created. For this to work, *read methods* must be marked with the `ReadOnly` attribute (as shown above).
 
-For each grain interface marked with `SingleWriterMultipleReaders`, OrleansTemplates will generate *read* and *write* grains that must be used instead of the original grain (the grain will not scale otherwise). The *read* and *write* grain interfaces are as follows:
+For each grain interface marked with `SingleWriterMultipleReaders`, OrleansTemplates will generate **read** and **write** interfaces that **must be used instead** of the original grain (the grain will not scale otherwise). The *read* and *write* grain interfaces are as follows:
 
 ```csharp
     public interface IHelloGrainReader : IGrainWithStringKey
@@ -82,4 +82,15 @@ For each grain interface marked with `SingleWriterMultipleReaders`, OrleansTempl
 
 To ensure consistency, we require client code to pass in a **session id** (a given session id is bound to one read replica). Whereas read requests with the same session id are executed serially (one after the other), read requests with different session ids are executed in parallel (if there are enough read replicas).
 
-Note that even though increasing the number of replicas increases the amount of parallelism for read requests, it increases memory and CPU usage (every write request must update all read replicas) and thus should not be abused. In addition, increasing the number of replicas beyond your hardware capacity (especially the number of cores available) will introduce unnecessary overhead.
+Client code will look as follows:
+```csharp
+// issue a read request:
+IHelloGrainReader reader = GrainFactory.GetGrain<IHelloGrainReader>("grainId");
+var value = reader.readSomething("currentSessionId");
+
+// issue a write request:
+IHelloGrainReader writer = GrainFactory.GetGrain<IHelloGrainWriter>("grainId");
+var value = writer.writeSomething("newValue", "currentSessionId");
+```
+
+Note that even though increasing the number of replicas increases the amount of parallelism for read requests, it increases memory and CPU usage (every write request must update all read replicas) and thus should not be abused. In addition, increasing the number of replicas beyond your hardware capacity will introduce unnecessary overhead.

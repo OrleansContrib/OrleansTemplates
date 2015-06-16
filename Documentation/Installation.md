@@ -1,5 +1,5 @@
 # Prerequisites
-=======
+
 * Visual Studio 2013.
 * Microsoft Build Tools 2015 ([download](http://go.microsoft.com/?linkid=9863815)). You can skip this step if you have Visual Studio 2015 Preview installed.
 
