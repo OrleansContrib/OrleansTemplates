@@ -22,3 +22,4 @@ msbuild.exe "VSTemplates\VSTemplates.sln" /t:Clean /p:Configuration=Release
 msbuild.exe "VSTemplates\VSTemplates.sln" /t:Build /p:Configuration=Release
 
 Copy-Item "VSTemplates\ETG.Orleans.Templates.VSIX\bin\Release\ETG.Orleans.Templates.VSIX.vsix" .
+Rename-Item ETG.Orleans.Templates.VSIX.vsix ETG.Orleans.Templates.vsix
