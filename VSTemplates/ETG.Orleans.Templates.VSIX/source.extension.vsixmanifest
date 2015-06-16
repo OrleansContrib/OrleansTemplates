@@ -4,6 +4,9 @@
     <Identity Id="ETG.Orleans.Templates.VSIX" Version="1.1" Language="en-US" Publisher="Microsoft Studios (BigPark)" />
     <DisplayName>ETG.Orleans.Templates.VSIX</DisplayName>
     <Description xml:space="preserve">ETG Orleans Project Templates</Description>
+    <MoreInfo>https://github.com/OrleansContrib/OrleansTemplates</MoreInfo>
+    <License>Terms.txt</License>
+    <GettingStartedGuide>https://github.com/OrleansContrib/OrleansTemplates</GettingStartedGuide>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0]" />
