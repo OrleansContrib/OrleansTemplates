@@ -94,3 +94,16 @@ var value = writer.writeSomething("newValue", "currentSessionId");
 ```
 
 Note that even though increasing the number of replicas increases the amount of parallelism for read requests, it increases memory and CPU usage (every write request must update all read replicas) and thus should not be abused. In addition, increasing the number of replicas beyond your hardware capacity will introduce unnecessary overhead.
+
+## Lazy-Write of Grain State
+The **ETG.Orleans** assembly contains a class that can be used to persist the grain state in a lazy fashion. To use it, simply add the following to your grain `OnActivateAsync()` method:
+
+```csharp
+public override Task OnActivateAsync()
+{
+    RegisterTimer(new GrainStateLazyWriteHandler(this, GetLogger()).WriteState, State, TimeSpan.FromSeconds(5),
+    TimeSpan.FromSeconds(5));
+    
+    return base.OnActivateAsync();
+}    
+```
