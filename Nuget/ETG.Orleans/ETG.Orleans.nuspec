@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ETG.Orleans</id>
+    <version>$version$</version>
+    <title>ETG.Orleans</title>
+    <authors>Microsoft Studios (BigPark)</authors>
+    <owners>Microsoft Studios (BigPark)</owners>
+    <licenseUrl>https://github.com/OrleansContrib/OrleansTemplates/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/OrleansContrib/OrleansTemplates</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Contains dependencies needed for using OrleansTemplates.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015</copyright>
+  </metadata>
+  
+  <files>
+    <file src="..\..\src\ETG.Orleans\bin\Release\ETG.Orleans.dll" target="lib\net45" />
+	<file src="..\..\src\ETG.Orleans\bin\Release\ETG.Orleans.xml" target="lib\net45" />
+  </files>  
+</package>

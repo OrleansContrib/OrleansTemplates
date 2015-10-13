@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETG.Orleans.Templates.Interfaces", "ETG.Orleans.Templates.Interfaces\ETG.Orleans.Templates.Interfaces.csproj", "{A20DA5F1-E410-4AD1-B53E-2F73D694BC91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETG.Orleans.Templates.Grains", "ETG.Orleans.Templates.Grains\ETG.Orleans.Templates.Grains.csproj", "{F8432628-FD12-40FF-BBA8-20B0E33338A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETG.Orleans.Templates.Host", "ETG.Orleans.Templates.Host\ETG.Orleans.Templates.Host.csproj", "{B671A1F0-DF72-4249-A341-9A30A9334C48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETG.Orleans.Templates.WebApis", "ETG.Orleans.Templates.WebApis\ETG.Orleans.Templates.WebApis.csproj", "{3C2A7D2E-CF18-4C29-849F-647147778622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETG.Orleans.Templates.VSIX", "ETG.Orleans.Templates.VSIX\ETG.Orleans.Templates.VSIX.csproj", "{594937F0-9690-41EF-B1C4-34D79A765EF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A20DA5F1-E410-4AD1-B53E-2F73D694BC91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A20DA5F1-E410-4AD1-B53E-2F73D694BC91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A20DA5F1-E410-4AD1-B53E-2F73D694BC91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A20DA5F1-E410-4AD1-B53E-2F73D694BC91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{594937F0-9690-41EF-B1C4-34D79A765EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{594937F0-9690-41EF-B1C4-34D79A765EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{594937F0-9690-41EF-B1C4-34D79A765EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{594937F0-9690-41EF-B1C4-34D79A765EF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8432628-FD12-40FF-BBA8-20B0E33338A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8432628-FD12-40FF-BBA8-20B0E33338A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8432628-FD12-40FF-BBA8-20B0E33338A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8432628-FD12-40FF-BBA8-20B0E33338A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B671A1F0-DF72-4249-A341-9A30A9334C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B671A1F0-DF72-4249-A341-9A30A9334C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B671A1F0-DF72-4249-A341-9A30A9334C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B671A1F0-DF72-4249-A341-9A30A9334C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C2A7D2E-CF18-4C29-849F-647147778622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C2A7D2E-CF18-4C29-849F-647147778622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C2A7D2E-CF18-4C29-849F-647147778622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C2A7D2E-CF18-4C29-849F-647147778622}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

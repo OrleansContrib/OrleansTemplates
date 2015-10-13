@@ -33,10 +33,7 @@ namespace TestingConsoleApp
         {
             try
             {
-                new CodeGenManager("../../TestingConsoleApp.csproj",
-                    new CodeGenHeaderGenerator(),
-                    new GrainStateWriterGenerator(),
-                    new GrainBaseGenerator(),
+                new CodeGenManager("../../../../test/TestData/ApiController_SimpleInterface/ApiController_SimpleInterface.csproj",
                     new ApiControllerGenerator()).CodeGen(Console.Out).Wait();
             }
             catch (ReflectionTypeLoadException exception)

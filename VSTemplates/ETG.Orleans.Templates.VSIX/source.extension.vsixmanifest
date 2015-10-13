@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="ETG.Orleans.Templates.VSIX" Version="1.3" Language="en-US" Publisher="Microsoft Studios (BigPark)" />
+    <DisplayName>ETG.Orleans.Templates.VSIX</DisplayName>
+    <Description xml:space="preserve">ETG Orleans Project Templates</Description>
+    <MoreInfo>https://github.com/OrleansContrib/OrleansTemplates</MoreInfo>
+    <License>Terms.txt</License>
+    <GettingStartedGuide>https://github.com/OrleansContrib/OrleansTemplates</GettingStartedGuide>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[12.0]" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="ETG.Orleans.Templates.Interfaces" d:TargetPath="|ETG.Orleans.Templates.Interfaces;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
+    <Asset Type="ETG.Orleans.1.2.1.nupkg" d:Source="File" Path="Packages\ETG.Orleans.1.2.1.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="System.Data.HashFunction.Core.1.8.1.0.nupkg" d:Source="File" Path="Packages\System.Data.HashFunction.Core.1.8.1.0.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="System.Data.HashFunction.Interfaces.1.0.0.0.nupkg" d:Source="File" Path="Packages\System.Data.HashFunction.Interfaces.1.0.0.0.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="System.Data.HashFunction.MurmurHash.1.8.1.0.nupkg" d:Source="File" Path="Packages\System.Data.HashFunction.MurmurHash.1.8.1.0.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="ETG.Orleans.Templates.Grains.1.2.1.nupkg" d:Source="File" Path="Packages\ETG.Orleans.Templates.Grains.1.2.1.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="ETG.Orleans.Templates.Interfaces.1.2.1.nupkg" d:Source="File" Path="Packages\ETG.Orleans.Templates.Interfaces.1.2.1.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.aspnet.cors.5.2.3.nupkg" d:Source="File" Path="Packages\microsoft.aspnet.cors.5.2.3.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.aspnet.webapi.5.2.3.nupkg" d:Source="File" Path="Packages\microsoft.aspnet.webapi.5.2.3.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.aspnet.webapi.client.5.2.3.nupkg" d:Source="File" Path="Packages\microsoft.aspnet.webapi.client.5.2.3.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.aspnet.webapi.core.5.2.3.nupkg" d:Source="File" Path="Packages\microsoft.aspnet.webapi.core.5.2.3.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.aspnet.webapi.cors.5.2.3.nupkg" d:Source="File" Path="Packages\microsoft.aspnet.webapi.cors.5.2.3.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.aspnet.webapi.owin.5.2.3.nupkg" d:Source="File" Path="Packages\microsoft.aspnet.webapi.owin.5.2.3.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.aspnet.webapi.owinselfhost.5.2.3.nupkg" d:Source="File" Path="Packages\microsoft.aspnet.webapi.owinselfhost.5.2.3.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.aspnet.webapi.webhost.5.2.3.nupkg" d:Source="File" Path="Packages\microsoft.aspnet.webapi.webhost.5.2.3.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.bcl.1.1.10.nupkg" d:Source="File" Path="Packages\microsoft.bcl.1.1.10.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.bcl.build.1.0.21.nupkg" d:Source="File" Path="Packages\microsoft.bcl.build.1.0.21.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.data.edm.5.6.4.nupkg" d:Source="File" Path="Packages\microsoft.data.edm.5.6.4.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.data.odata.5.6.4.nupkg" d:Source="File" Path="Packages\microsoft.data.odata.5.6.4.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.data.services.client.5.6.4.nupkg" d:Source="File" Path="Packages\microsoft.data.services.client.5.6.4.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.net.http.2.2.29.nupkg" d:Source="File" Path="Packages\microsoft.net.http.2.2.29.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.orleans.core.1.0.10.nupkg" d:Source="File" Path="Packages\microsoft.orleans.core.1.0.10.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.orleans.orleansproviders.1.0.10.nupkg" d:Source="File" Path="Packages\microsoft.orleans.orleansproviders.1.0.10.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.orleans.orleansruntime.1.0.10.nupkg" d:Source="File" Path="Packages\microsoft.orleans.orleansruntime.1.0.10.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.orleans.templates.grains.1.0.10.nupkg" d:Source="File" Path="Packages\microsoft.orleans.templates.grains.1.0.10.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.orleans.templates.interfaces.1.0.10.nupkg" d:Source="File" Path="Packages\microsoft.orleans.templates.interfaces.1.0.10.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.owin.3.0.1.nupkg" d:Source="File" Path="Packages\microsoft.owin.3.0.1.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.owin.cors.3.0.1.nupkg" d:Source="File" Path="Packages\microsoft.owin.cors.3.0.1.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.owin.host.httplistener.3.0.1.nupkg" d:Source="File" Path="Packages\microsoft.owin.host.httplistener.3.0.1.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.owin.host.systemweb.3.0.1.nupkg" d:Source="File" Path="Packages\microsoft.owin.host.systemweb.3.0.1.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.owin.hosting.3.0.1.nupkg" d:Source="File" Path="Packages\microsoft.owin.hosting.3.0.1.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.owin.security.3.0.1.nupkg" d:Source="File" Path="Packages\microsoft.owin.security.3.0.1.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="microsoft.windowsazure.configurationmanager.3.1.0.nupkg" d:Source="File" Path="Packages\microsoft.windowsazure.configurationmanager.3.1.0.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="newtonsoft.json.6.0.8.nupkg" d:Source="File" Path="Packages\newtonsoft.json.6.0.8.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="owin.1.0.0.nupkg" d:Source="File" Path="Packages\owin.1.0.0.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="system.spatial.5.6.4.nupkg" d:Source="File" Path="Packages\system.spatial.5.6.4.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="windowsazure.storage.4.3.0.nupkg" d:Source="File" Path="Packages\windowsazure.storage.4.3.0.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="windowsazure.storage.4.4.1-preview.nupkg" d:Source="File" Path="Packages\windowsazure.storage.4.4.1-preview.nupkg" d:VsixSubPath="Packages" />
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="ETG.Orleans.Templates.Grains" d:TargetPath="|ETG.Orleans.Templates.Grains;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\ETG.Orleans.Solution.zip" />
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="ETG.Orleans.Templates.Host" d:TargetPath="|ETG.Orleans.Templates.Host;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
+    <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="ETG.Orleans.Templates.WebApis" d:TargetPath="|ETG.Orleans.Templates.WebApis;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
+  </Assets>
+</PackageManifest>

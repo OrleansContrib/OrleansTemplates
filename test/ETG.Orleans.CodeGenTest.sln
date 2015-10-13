@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETG.Orleans", "..\src\ETG.Orleans\ETG.Orleans.csproj", "{8D1CAE0A-BBC8-46BA-9619-461C3C65366D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETG.Orleans.CodeGen", "..\src\ETG.Orleans.CodeGen\ETG.Orleans.CodeGen.csproj", "{ECA1EACF-FD62-498F-BE02-75BCA5DCB2C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiController_SimpleInterface", "TestData\ApiController_SimpleInterface\ApiController_SimpleInterface.csproj", "{3B7E26EE-819B-4632-A539-45C11E642F3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7E29A53C-7853-468D-8A9F-03A2089A2648}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETG.Orleans.CodeGenTest", "ETG.Orleans.CodeGenTest\ETG.Orleans.CodeGenTest.csproj", "{A66C6B74-550E-4A23-AD49-EBF934FCF854}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E1096F2F-E64B-4008-B60D-9F12884DD4D7} = {E1096F2F-E64B-4008-B60D-9F12884DD4D7}
+		{4EB07351-2274-4DDD-AF79-A13E2DC0738E} = {4EB07351-2274-4DDD-AF79-A13E2DC0738E}
+		{9524F8D1-8D75-4E47-B9C6-BF2A91A1DCAC} = {9524F8D1-8D75-4E47-B9C6-BF2A91A1DCAC}
+		{3031BEE8-5746-4E7E-91FA-7A1A6AF86B74} = {3031BEE8-5746-4E7E-91FA-7A1A6AF86B74}
+		{3B7E26EE-819B-4632-A539-45C11E642F3E} = {3B7E26EE-819B-4632-A539-45C11E642F3E}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWMR_Simple_Interfaces", "TestData\SWMR_Simple_Interfaces\SWMR_Simple_Interfaces.csproj", "{E1096F2F-E64B-4008-B60D-9F12884DD4D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWMR_Simple_Grains", "TestData\SWMR_Simple_Grains\SWMR_Simple_Grains.csproj", "{4EB07351-2274-4DDD-AF79-A13E2DC0738E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWMR_MultipleGrains_Interfaces", "TestData\SWMR_MultipleGrains_Interfaces\SWMR_MultipleGrains_Interfaces.csproj", "{3031BEE8-5746-4E7E-91FA-7A1A6AF86B74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWMR_MultipleGrains_Grains", "TestData\SWMR_MultipleGrains_Grains\SWMR_MultipleGrains_Grains.csproj", "{9524F8D1-8D75-4E47-B9C6-BF2A91A1DCAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D1CAE0A-BBC8-46BA-9619-461C3C65366D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1CAE0A-BBC8-46BA-9619-461C3C65366D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1CAE0A-BBC8-46BA-9619-461C3C65366D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1CAE0A-BBC8-46BA-9619-461C3C65366D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECA1EACF-FD62-498F-BE02-75BCA5DCB2C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECA1EACF-FD62-498F-BE02-75BCA5DCB2C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECA1EACF-FD62-498F-BE02-75BCA5DCB2C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECA1EACF-FD62-498F-BE02-75BCA5DCB2C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B7E26EE-819B-4632-A539-45C11E642F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B7E26EE-819B-4632-A539-45C11E642F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B7E26EE-819B-4632-A539-45C11E642F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B7E26EE-819B-4632-A539-45C11E642F3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A66C6B74-550E-4A23-AD49-EBF934FCF854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A66C6B74-550E-4A23-AD49-EBF934FCF854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A66C6B74-550E-4A23-AD49-EBF934FCF854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A66C6B74-550E-4A23-AD49-EBF934FCF854}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1096F2F-E64B-4008-B60D-9F12884DD4D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1096F2F-E64B-4008-B60D-9F12884DD4D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1096F2F-E64B-4008-B60D-9F12884DD4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1096F2F-E64B-4008-B60D-9F12884DD4D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EB07351-2274-4DDD-AF79-A13E2DC0738E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EB07351-2274-4DDD-AF79-A13E2DC0738E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EB07351-2274-4DDD-AF79-A13E2DC0738E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EB07351-2274-4DDD-AF79-A13E2DC0738E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3031BEE8-5746-4E7E-91FA-7A1A6AF86B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3031BEE8-5746-4E7E-91FA-7A1A6AF86B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3031BEE8-5746-4E7E-91FA-7A1A6AF86B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3031BEE8-5746-4E7E-91FA-7A1A6AF86B74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9524F8D1-8D75-4E47-B9C6-BF2A91A1DCAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9524F8D1-8D75-4E47-B9C6-BF2A91A1DCAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9524F8D1-8D75-4E47-B9C6-BF2A91A1DCAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9524F8D1-8D75-4E47-B9C6-BF2A91A1DCAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

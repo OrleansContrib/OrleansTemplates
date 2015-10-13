@@ -30,7 +30,7 @@ namespace ETG.Orleans.CodeGen.Tasks
     {
         public override ICodeGenParticipant[] GetCodeGenParticipants()
         {
-            return new ICodeGenParticipant[] {new CodeGenHeaderGenerator(), new ApiControllerGenerator()};
+            return new ICodeGenParticipant[] {new ApiControllerGenerator()};
         }
     }
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ETG.Orleans.Templates.Grains</id>
+    <version>$version$</version>
+    <title>ETG.Orleans VS Templates for Grains Implementation</title>
+    <authors>Microsoft Studios (BigPark)</authors>
+    <owners>Microsoft Studios (BigPark)</owners>
+    <licenseUrl>https://github.com/OrleansContrib/OrleansTemplates/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/OrleansContrib/OrleansTemplates</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ETG.Orleans VS Templates for Grains Implementation</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015</copyright>
+	
+    <dependencies>
+	  <dependency id="ETG.Orleans" version="$version$" />
+      <dependency id="Microsoft.Orleans.Templates.Grains" version="$orleansVersion$" />
+    </dependencies>	
+  </metadata>
+  
+  <files>
+	<file src="..\..\src\MSBuildTargets\ETG.Orleans.Templates.Grains.targets" target="build" />	
+	
+	<file src="EmptyFile.cs" target="content\Properties\etg.orleans.swmrgrains.cs" />
+  
+  	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\ETG.Orleans.CodeGen.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\ETG.Orleans.dll" target="tools" />
+	
+	<!-- Roslyn dlls. Can be removed once Roslyn becomes officially part of Visual Studio-->
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.CSharp.Desktop.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.CSharp.Workspaces.Desktop.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.CSharp.Workspaces.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.CSharp.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.Desktop.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.VisualBasic.Desktop.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.VisualBasic.Desktop.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.VisualBasic.Workspaces.Desktop.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.VisualBasic.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.Workspaces.Desktop.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.Workspaces.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\Microsoft.CodeAnalysis.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\System.Collections.Immutable.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\System.Composition.AttributedModel.dll" target="tools" />
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\System.Composition.Convention.dll" target="tools" />	
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\System.Composition.Hosting.dll" target="tools" />	
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\System.Composition.Runtime.dll" target="tools" />	
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\System.Composition.TypedParts.dll" target="tools" />	
+	<file src="..\..\src\ETG.Orleans.CodeGen\bin\Release\System.Reflection.Metadata.dll" target="tools" />	
+  </files>
+</package>

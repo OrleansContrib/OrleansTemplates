@@ -19,7 +19,6 @@ OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHE
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 
@@ -30,6 +29,6 @@ namespace ETG.Orleans.CodeGen.CodeGenParticipants
     /// </summary>
     public interface ICodeGenParticipant
     {
-        Task CodeGen(Workspace workspace, Project project, TextWriter textWriter);
+        Task<CodeGenResult> CodeGen(Workspace workspace, Project project);
     }
 }

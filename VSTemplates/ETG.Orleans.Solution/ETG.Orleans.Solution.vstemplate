@@ -1,0 +1,26 @@
+﻿<VSTemplate Version="2.0.0" Type="ProjectGroup" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>ETG Orleans Solution</Name>
+    <Description></Description>
+    <ProjectType>CSharp</ProjectType>
+    <TemplateGroupID>WCF</TemplateGroupID>
+    <RequiredFrameworkVersion>4.5</RequiredFrameworkVersion>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectCollection>
+      <ProjectTemplateLink ProjectName="Grains">
+        ETG.Orleans.Templates.Grains\ETG.Orleans.Templates.Grains.vstemplate
+      </ProjectTemplateLink>
+      <ProjectTemplateLink ProjectName="GrainInterfaces">
+        ETG.Orleans.Templates.Interfaces\ETG.Orleans.Templates.Interfaces.vstemplate
+      </ProjectTemplateLink>
+      <ProjectTemplateLink ProjectName="Host">
+        ETG.Orleans.Templates.Host\ETG.Orleans.Templates.Host.vstemplate
+      </ProjectTemplateLink>
+        <ProjectTemplateLink ProjectName="WebApis">
+        ETG.Orleans.Templates.WebApis\ETG.Orleans.Templates.WebApis.vstemplate
+      </ProjectTemplateLink>
+    </ProjectCollection>
+  </TemplateContent>
+</VSTemplate>
