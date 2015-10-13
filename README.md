@@ -4,7 +4,6 @@ Orleans Templates
 
 * A full **solution template** for Visual Studio that contains projects for Grains, GrainInterfaces, Local Silo and REST Api.
 * A set of **Attributes** backed by a compile-time code generation (using Roslyn) to reduce boiler-plate code. In fact, we support placing ASP.NET routing attributes directly on the Grain Interface and we generate the corresponding Api Controllers for you. In addition, we offer a `SingleWriterMultipleReaders` attribute that can be placed on a grain interface and allows the Grain to respond to multiple read requests in parallel (scale on read access).
-* A class library that offers functionality such as *Lazy-write* of Grain State.
 
 Documentation 
 =======
