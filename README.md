@@ -1,3 +1,5 @@
+***IMPORTANT NOTE: This repo is NOT up-to-date with the latest version of Orleans and is not being maintained.***
+
 Orleans Templates
 =======
 **Orleans Templates** increase Orleans developers productivity by offering a set of Visual Studio templates that spare developers from routine configuration and from writing boiler-plate code. It was created by **Microsoft Studios (BigPark)**. It offers the following:
